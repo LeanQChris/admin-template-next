@@ -13,7 +13,7 @@ export default function ProviderWrappers({
     return (
         <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
         >
@@ -23,7 +23,9 @@ export default function ProviderWrappers({
                     <header className="w-full py-2">
                         <CustomTrigger />
                     </header>
-                    {children}
+                    <section>
+                        {children}
+                    </section>
                 </main>
             </SidebarProvider>
         </ThemeProvider>

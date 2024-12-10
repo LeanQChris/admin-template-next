@@ -1,5 +1,9 @@
 "use client"
 
+import { Suspense } from "react"
+import { usePathname } from "next/navigation" // Import for path-based active item detection
+import { Calendar, Search, Settings, Home } from "lucide-react"
+
 import {
     Sidebar,
     SidebarContent,
@@ -10,60 +14,78 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from "@/components/ui/base/sidebar"
-import { Calendar, Search, Settings, Home } from "lucide-react"
-import { ModeToggle } from "../mode-toogle"
-import { Suspense } from "react"
-import { Separator } from "../base/separator"
 
+import { ModeToggle } from "../mode-toogle"
+import { Separator } from "../base/separator"
+import Link from "next/link"
 
 const items = [
     {
         title: "Home",
-        url: "#",
+        url: "/",
         icon: Home,
     },
     {
         title: "Calendar",
-        url: "#",
+        url: "#calendar",
         icon: Calendar,
     },
     {
         title: "Search",
-        url: "#",
+        url: "#search",
         icon: Search,
     },
     {
         title: "Settings",
-        url: "#",
+        url: "/settings",
         icon: Settings,
     },
 ]
 
 export function AppSidebar() {
+    const pathname = usePathname() // Get the current path
+    const { open } = useSidebar()
     return (
-        <Suspense>
-            <Sidebar>
-                <SidebarHeader className="py-4 px-4 text-xl" >Admin</SidebarHeader>
-                <Separator />
-                <SidebarContent className="px-2 pt-5">
+        <Suspense >
+            <Sidebar collapsible="icon">
+                {/* Sidebar Header */}
+                <SidebarHeader className="py-4 px-4 text-xl truncate line-clamp-1">
+                </SidebarHeader>
+                <SidebarContent className=" pt-5">
                     <SidebarGroupContent>
-                        <SidebarMenu>
-                            {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
+                        <SidebarMenu >
+                            {items.map((item) => {
+                                const isActive = pathname === item.url
+                                return (
+                                    <SidebarMenuItem
+                                        key={item.title}
+                                        className={`group flex items-center gap-3 p-2 rounded-md transition ${isActive
+                                            ? "bg-gray-100  dark:bg-gray-800"
+                                            : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                                            }`}
+                                    >
+                                        <SidebarMenuButton asChild>
+                                            <Link
+                                                href={item.url}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <item.icon
+                                                    className={`h-5 w-5 `}
+                                                />
+                                                <span className="text-sm">{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                )
+                            })}
                         </SidebarMenu>
                     </SidebarGroupContent>
                     <SidebarGroup />
                 </SidebarContent>
-                <SidebarFooter className="flex flex-row-reverse">
+                <Separator />
+                <SidebarFooter className="flex flex-row-reverse ">
                     <ModeToggle />
                 </SidebarFooter>
             </Sidebar>
