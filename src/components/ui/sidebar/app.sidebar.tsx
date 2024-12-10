@@ -1,6 +1,5 @@
 "use client"
 
-import { Suspense } from "react"
 import { usePathname } from "next/navigation" // Import for path-based active item detection
 import { Calendar, Search, Settings, Home } from "lucide-react"
 
@@ -14,7 +13,6 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    useSidebar,
 } from "@/components/ui/base/sidebar"
 
 import { ModeToggle } from "../mode-toogle"
@@ -46,49 +44,46 @@ const items = [
 
 export function AppSidebar() {
     const pathname = usePathname() // Get the current path
-    const { open } = useSidebar()
     return (
-        <Suspense >
-            <Sidebar collapsible="icon">
-                {/* Sidebar Header */}
-                <SidebarHeader className="py-4 px-4 text-xl truncate line-clamp-1">
-                </SidebarHeader>
-                <SidebarContent className=" pt-5">
-                    <SidebarGroupContent>
-                        <SidebarMenu >
-                            {items.map((item) => {
-                                const isActive = pathname === item.url
-                                return (
-                                    <SidebarMenuItem
-                                        key={item.title}
-                                        className={`group flex items-center gap-3 p-2 rounded-md transition ${isActive
-                                            ? "bg-gray-100  dark:bg-gray-800"
-                                            : "hover:bg-gray-100 dark:hover:bg-gray-800"
-                                            }`}
-                                    >
-                                        <SidebarMenuButton asChild>
-                                            <Link
-                                                href={item.url}
-                                                className="flex items-center gap-2"
-                                            >
-                                                <item.icon
-                                                    className={`h-5 w-5 `}
-                                                />
-                                                <span className="text-sm">{item.title}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                )
-                            })}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                    <SidebarGroup />
-                </SidebarContent>
-                <Separator />
-                <SidebarFooter className="flex flex-row-reverse ">
-                    <ModeToggle />
-                </SidebarFooter>
-            </Sidebar>
-        </Suspense>
+        <Sidebar collapsible="icon">
+            {/* Sidebar Header */}
+            <SidebarHeader className="py-4 px-4 text-xl truncate line-clamp-1">
+            </SidebarHeader>
+            <SidebarContent className=" pt-5">
+                <SidebarGroupContent>
+                    <SidebarMenu >
+                        {items.map((item) => {
+                            const isActive = pathname === item.url
+                            return (
+                                <SidebarMenuItem
+                                    key={item.title}
+                                    className={`group flex items-center gap-3 p-2 rounded-md transition ${isActive
+                                        ? "bg-gray-100  dark:bg-gray-800"
+                                        : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                                        }`}
+                                >
+                                    <SidebarMenuButton asChild>
+                                        <Link
+                                            href={item.url}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <item.icon
+                                                className={`h-5 w-5 `}
+                                            />
+                                            <span className="text-sm">{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            )
+                        })}
+                    </SidebarMenu>
+                </SidebarGroupContent>
+                <SidebarGroup />
+            </SidebarContent>
+            <Separator />
+            <SidebarFooter className="flex flex-row-reverse ">
+                <ModeToggle />
+            </SidebarFooter>
+        </Sidebar>
     )
 }
