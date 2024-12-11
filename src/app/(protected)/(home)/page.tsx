@@ -1,11 +1,8 @@
 import { HydrationBoundary } from "@tanstack/react-query";
 import Lists from "./lists";
 import { getQueryClient } from "@/core/lib/get-query-client";
+import { fetchPosts } from "./action";
 
-export async function fetchPosts() {
-  const result = await fetch('https://jsonplaceholder.typicode.com/posts');
-  return result.json();
-}
 
 export default async function Home() {
 

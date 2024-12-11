@@ -1,10 +1,10 @@
 "use client"
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
-import { fetchPosts } from './page'
+import { fetchPosts } from './action'
 
 export default function Lists() {
-    const { data, error } = useQuery({
+    const { data } = useQuery({
         queryKey: ['posts'],
         queryFn: () => fetchPosts(),
     })
