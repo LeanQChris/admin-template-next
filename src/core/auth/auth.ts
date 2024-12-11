@@ -10,7 +10,7 @@ const authOptions: AuthOptions = {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 const res = await fetch(baseUrl + endpoints.login, {
                     method: "POST",
                     headers: {
@@ -35,12 +35,12 @@ const authOptions: AuthOptions = {
     },
     callbacks: {
         // Called when a user signs in
-        async signIn({ user, account, profile }) {
+        async signIn({ }) {
             return true;
         },
 
         // Handle JWT token creation and updates
-        async jwt({ token, user, account }: any) {
+        async jwt({ token, user }: any) {
             // Add user and accessToken on first sign-in
             if (user) {
                 token.id = user.user.id;
