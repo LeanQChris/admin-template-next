@@ -1,4 +1,4 @@
-export const baseUrl = "https://jsonplaceholder.typicode.com";
+export const baseUrl = "https://ce.leanq.digital/api";
 export const endpoints = {
-
+    login: "/auth/admin/signin"
 }

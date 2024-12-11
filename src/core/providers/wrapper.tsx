@@ -1,15 +1,20 @@
 "use client"
 import React from "react";
 import TanstackQueryProvider from "./tanstack-query.provider";
+import { SessionProvider } from "next-auth/react"
+import { Session } from 'next-auth'
 
 export default function ProviderWrappers({
-    children
+    children, session
 }: {
-    children: React.ReactNode;
+    children: React.ReactNode,
+    session: Session | null
 }) {
     return (
-        <TanstackQueryProvider>
-            {children}
-        </TanstackQueryProvider >
+        <SessionProvider session={session}>
+            <TanstackQueryProvider>
+                {children}
+            </TanstackQueryProvider >
+        </SessionProvider>
     );
 }
