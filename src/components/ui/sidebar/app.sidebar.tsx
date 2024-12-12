@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation" // Import for path-based active item detection
-import { Calendar, Search, Settings, Home } from "lucide-react"
+import { Calendar, Search, Settings, Home, User } from "lucide-react"
 
 import {
     Sidebar,
@@ -31,9 +31,9 @@ const items = [
         icon: Calendar,
     },
     {
-        title: "Search",
-        url: "#search",
-        icon: Search,
+        title: "Users",
+        url: "/users",
+        icon: User,
     },
     {
         title: "Settings",
